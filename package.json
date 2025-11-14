@@ -1,0 +1,23 @@
+{
+  "name": "playwright-playground-swaglabs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wojdaa/playwright-playground-swaglabs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wojdaa/playwright-playground-swaglabs/issues"
+  },
+  "homepage": "https://github.com/wojdaa/playwright-playground-swaglabs#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.1",
+    "prettier": "3.6.2"
+  }
+}
