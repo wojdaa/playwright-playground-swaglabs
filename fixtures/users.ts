@@ -3,7 +3,7 @@ export const users = {
     username: "Katharina_Bernier",
     fistName: "Katharina",
     lastName: "Bernier",
-    password: "s3cret",
+    password: process.env.STANDARD_USER_PASSWORD as string,
     bankName: "Blue Whale Bank",
     bankRoutingNumber: "111555888",
     bankAccountNumber: "881000222212"

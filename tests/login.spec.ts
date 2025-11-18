@@ -12,7 +12,6 @@ test.describe("Login Page", () => {
 
   test("user can login with valid credentials", async ({ page }) => {
     await loginPage.loginAs("standardUser");
-
     await expect(page.getByText("Account Balance")).toBeVisible();
   });
 

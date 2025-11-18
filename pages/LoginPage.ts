@@ -60,6 +60,9 @@ export class LoginPage extends BasePage {
 
   async loginAs(userKey: keyof typeof users) {
     const user = users[userKey];
+    if (!user.username || !user.password) {
+      throw new Error(`Username or password not defined for user: ${userKey}`);
+    }
     await this.login(user.username, user.password);
   }
 
