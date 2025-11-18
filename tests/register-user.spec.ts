@@ -8,7 +8,7 @@ test.describe("User Registration", () => {
     const user = users.standardUser;
 
     loginPage = new LoginPage(page);
-    await loginPage.goto();
+    await page.goto("/signup");
 
     await page.getByRole("textbox", { name: "First Name" }).fill(user.fistName);
     await page.getByRole("textbox", { name: "Last Name" }).fill(user.lastName);

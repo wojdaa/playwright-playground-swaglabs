@@ -40,11 +40,6 @@ export class LoginPage extends BasePage {
     this.singUpLink = page.getByTestId("signup");
   }
 
-  async goto() {
-    await this.page.goto("/signin");
-    await expect(this.heading).toBeVisible();
-  }
-
   async fillUsername(username: string) {
     await this.usernameInput.fill(username);
   }
