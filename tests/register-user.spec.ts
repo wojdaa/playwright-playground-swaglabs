@@ -1,6 +1,3 @@
-// spec: Register new user with credentials from fixtures and handle optional bank configuration popup
-// seed: tests/seed.spec.ts
-
 import { test, expect } from "@playwright/test";
 import { users } from "../fixtures/users";
 import { LoginPage } from "../pages/loginPage";
@@ -38,13 +35,13 @@ test.describe("User Registration", () => {
       page.getByRole("heading", { name: "Create Bank Account" })
     ).toBeVisible();
 
-    await page.getByRole("textbox", { name: "Bank Name" }).fill("Test Bank");
+    await page.getByRole("textbox", { name: "Bank Name" }).fill(user.bankName);
     await page
       .getByRole("textbox", { name: "Routing Number" })
-      .fill("987654321");
+      .fill(user.bankRoutingNumber);
     await page
       .getByRole("textbox", { name: "Account Number" })
-      .fill("123456789012");
+      .fill(user.bankAccountNumber);
 
     await page.getByTestId("bankaccount-submit").click();
     await expect(page.getByRole("heading", { name: "Finished" })).toBeVisible();
