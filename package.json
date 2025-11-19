@@ -1,24 +1,39 @@
 {
-    "name": "playwright-playground-swaglabs",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {},
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/wojdaa/playwright-playground-swaglabs.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/wojdaa/playwright-playground-swaglabs/issues"
-    },
-    "homepage": "https://github.com/wojdaa/playwright-playground-swaglabs#readme",
-    "devDependencies": {
-        "@playwright/test": "^1.56.1",
-        "@types/node": "^24.10.1",
-        "dotenv": "^17.2.3",
-        "prettier": "3.6.2"
-    }
+  "name": "playwright-playground-swaglabs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:accessibility": "playwright test --grep @accessibility",
+    "test:critical": "playwright test --grep '@smoke|@critical'",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wojdaa/playwright-playground-swaglabs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wojdaa/playwright-playground-swaglabs/issues"
+  },
+  "homepage": "https://github.com/wojdaa/playwright-playground-swaglabs#readme",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.1",
+    "dotenv": "^17.2.3",
+    "prettier": "3.6.2"
+  }
 }
