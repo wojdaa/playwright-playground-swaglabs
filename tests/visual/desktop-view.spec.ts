@@ -1,6 +1,3 @@
-// spec: test-plan-saucedemo.md
-// seed: tests/seed.spec.ts
-
 import { test, expect } from "@playwright/test";
 import { loginAs } from "../../utils/test-helpers";
 import { config } from "../../utils/config";
