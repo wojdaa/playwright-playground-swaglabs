@@ -1,9 +1,9 @@
-import { Page } from '@playwright/test';
+import { Page } from '@playwright/test'
 
 export class BasePage {
-  constructor(public readonly page: Page) {}
+    constructor(public readonly page: Page) {}
 
-  async goto(url: string) {
-    await this.page.goto(url);
-  }
+    async goto(url: string) {
+        await this.page.goto(url)
+    }
 }

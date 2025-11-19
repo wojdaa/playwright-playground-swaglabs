@@ -1,69 +1,73 @@
-import { expect, Page, Locator } from '@playwright/test';
-import { BasePage } from './base.page';
+import { expect, Page, Locator } from '@playwright/test'
+import { BasePage } from './base.page'
 
 export class CheckoutStepTwoPage extends BasePage {
-  readonly pageTitle: Locator;
-  readonly cartItems: Locator;
-  readonly subtotal: Locator;
-  readonly tax: Locator;
-  readonly total: Locator;
-  readonly finishButton: Locator;
-  readonly cancelButton: Locator;
-  readonly paymentInfo: Locator;
-  readonly shippingInfo: Locator;
-  readonly inventoryItemName: Locator;
+    readonly pageTitle: Locator
+    readonly cartItems: Locator
+    readonly subtotal: Locator
+    readonly tax: Locator
+    readonly total: Locator
+    readonly finishButton: Locator
+    readonly cancelButton: Locator
+    readonly paymentInfo: Locator
+    readonly shippingInfo: Locator
+    readonly inventoryItemName: Locator
 
-  constructor(page: Page) {
-    super(page);
-    this.pageTitle = page.locator('.title');
-    this.cartItems = page.locator('.cart_item');
-    this.subtotal = page.locator('.summary_subtotal_label');
-    this.tax = page.locator('.summary_tax_label');
-    this.total = page.locator('.summary_total_label');
-    this.finishButton = page.locator('[data-test="finish"]');
-    this.cancelButton = page.locator('[data-test="cancel"]');
-    this.paymentInfo = page.locator('.summary_value_label');
-    this.shippingInfo = page.locator('.summary_value_label');
-    this.inventoryItemName = page.locator('.inventory_item_name');
-  }
+    constructor(page: Page) {
+        super(page)
+        this.pageTitle = page.locator('.title')
+        this.cartItems = page.locator('.cart_item')
+        this.subtotal = page.locator('.summary_subtotal_label')
+        this.tax = page.locator('.summary_tax_label')
+        this.total = page.locator('.summary_total_label')
+        this.finishButton = page.locator('[data-test="finish"]')
+        this.cancelButton = page.locator('[data-test="cancel"]')
+        this.paymentInfo = page.locator('.summary_value_label')
+        this.shippingInfo = page.locator('.summary_value_label')
+        this.inventoryItemName = page.locator('.inventory_item_name')
+    }
 
-  async verifyCheckoutOverviewDisplayed() {
-    await expect(this.pageTitle).toHaveText('Checkout: Overview');
-  }
+    async verifyCheckoutOverviewDisplayed() {
+        await expect(this.pageTitle).toHaveText('Checkout: Overview')
+    }
 
-  async verifyItemInOrder(productName: string) {
-    await expect(this.inventoryItemName.filter({ hasText: productName })).toBeVisible();
-  }
+    async verifyItemInOrder(productName: string) {
+        await expect(
+            this.inventoryItemName.filter({ hasText: productName })
+        ).toBeVisible()
+    }
 
-  async verifyOrderItemCount(expectedCount: number) {
-    await expect(this.cartItems).toHaveCount(expectedCount);
-  }
+    async verifyOrderItemCount(expectedCount: number) {
+        await expect(this.cartItems).toHaveCount(expectedCount)
+    }
 
-  async getSubtotal(): Promise<number> {
-    const text = await this.subtotal.textContent() || '';
-    return parseFloat(text.replace('Item total: $', ''));
-  }
+    async getSubtotal(): Promise<number> {
+        const text = (await this.subtotal.textContent()) || ''
+        return parseFloat(text.replace('Item total: $', ''))
+    }
 
-  async getTax(): Promise<number> {
-    const text = await this.tax.textContent() || '';
-    return parseFloat(text.replace('Tax: $', ''));
-  }
+    async getTax(): Promise<number> {
+        const text = (await this.tax.textContent()) || ''
+        return parseFloat(text.replace('Tax: $', ''))
+    }
 
-  async getTotal(): Promise<number> {
-    const text = await this.total.textContent() || '';
-    return parseFloat(text.replace('Total: $', ''));
-  }
+    async getTotal(): Promise<number> {
+        const text = (await this.total.textContent()) || ''
+        return parseFloat(text.replace('Total: $', ''))
+    }
 
-  async verifyPaymentInformation(expectedText: string) {
-    const paymentElements = await this.paymentInfo.allTextContents();
-    expect(paymentElements.some(text => text.includes(expectedText))).toBeTruthy();
-  }
+    async verifyPaymentInformation(expectedText: string) {
+        const paymentElements = await this.paymentInfo.allTextContents()
+        expect(
+            paymentElements.some((text) => text.includes(expectedText))
+        ).toBeTruthy()
+    }
 
-  async finish() {
-    await this.finishButton.click();
-  }
+    async finish() {
+        await this.finishButton.click()
+    }
 
-  async cancel() {
-    await this.cancelButton.click();
-  }
+    async cancel() {
+        await this.cancelButton.click()
+    }
 }
