@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { loginAs } from "../../utils/test-helpers";
-import { NavigationPage } from "../../pages/navigation.page";
-import { InventoryPage } from "../../pages/inventory.page";
-import { config } from "../../utils/config";
+import { loginAs } from "../../../utils/test-helpers";
+import { NavigationPage } from "../../../pages/navigation.page";
+import { InventoryPage } from "../../../pages/inventory.page";
+import { config } from "../../../utils/config";
 
 test.describe("Navigation & Menu", () => {
   let navigation: NavigationPage;

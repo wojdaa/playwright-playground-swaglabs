@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { LoginPage } from "../../pages/login.page";
-import { config } from "../../utils/config";
+import { LoginPage } from "../../../pages/login.page";
+import { config } from "../../../utils/config";
 
 test.describe("Authentication & User Management", () => {
   test("Clear Error Message @regression", async ({ page }) => {

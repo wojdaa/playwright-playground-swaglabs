@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { loginAs, verifyUrlContains } from "../../utils/test-helpers";
-import { InventoryPage } from "../../pages/inventory.page";
-import { ProductDetailPage } from "../../pages/product-detail.page";
-import { config } from "../../utils/config";
+import { loginAs, verifyUrlContains } from "../../../utils/test-helpers";
+import { InventoryPage } from "../../../pages/inventory.page";
+import { ProductDetailPage } from "../../../pages/product-detail.page";
+import { config } from "../../../utils/config";
 
 test.describe("Product Browsing & Navigation", () => {
   let inventoryPage: InventoryPage;

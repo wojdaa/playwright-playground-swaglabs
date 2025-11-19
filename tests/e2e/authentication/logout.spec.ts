@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { loginAs } from "../../utils/test-helpers";
-import { NavigationPage } from "../../pages/navigation.page";
-import { config } from "../../utils/config";
+import { loginAs } from "../../../utils/test-helpers";
+import { NavigationPage } from "../../../pages/navigation.page";
+import { config } from "../../../utils/config";
 
 test.describe("Authentication & User Management", () => {
   test("Successful Logout @smoke @regression", async ({ page }) => {

@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { loginAs } from "../../utils/test-helpers";
-import { InventoryPage } from "../../pages/inventory.page";
-import { CartPage } from "../../pages/cart.page";
-import { config } from "../../utils/config";
+import { loginAs } from "../../../utils/test-helpers";
+import { InventoryPage } from "../../../pages/inventory.page";
+import { CartPage } from "../../../pages/cart.page";
+import { config } from "../../../utils/config";
 
 test.describe("Shopping Cart Management", () => {
   let inventoryPage: InventoryPage;

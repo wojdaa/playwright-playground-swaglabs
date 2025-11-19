@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { config } from "../../utils/config";
+import { config } from "../../../utils/config";
 
 test.describe("Authentication & User Management", () => {
   test("Successful Login - Standard User @smoke @regression", async ({
