@@ -3,6 +3,7 @@ pipeline {
 
   environment {
     BASE_URL = 'https://www.saucedemo.com'
+    PASSWORD = credentials('swaglabs_password')
   }
 
   stages {
