@@ -1,176 +1,230 @@
 # playwright-playground-swaglabs
 
-Comprehensive end-to-end test suite for SauceDemo e-commerce application using Playwright.
+Comprehensive end-to-end test suite for the [SauceDemo](https://www.saucedemo.com/) e-commerce application, built with **Playwright Test** and **TypeScript**.
 
-## 🚀 Quick Start
+This project serves as a realistic **automation playground**, demonstrating:
 
-### Installation
+- clean and scalable **Page Object Model (POM)**,
+- tagged **smoke / regression / accessibility / visual** suites,
+- strong use of **helpers + utilities**,
+- **CI integration** (GitHub Actions + local Jenkins),
+- best practices for configuration & environment separation,
+- example **visual regression workflow**,
+- example **accessibility testing** with Axe.
 
-```bash
+---
+
+## 🚀 Tech Stack
+
+- **Playwright Test** (`@playwright/test`)
+- **TypeScript**
+- **axe-core** (`@axe-core/playwright`)
+- **dotenv**
+- **GitHub Actions**
+- **Jenkins** (optional)
+
+---
+
+## 📁 Project Structure
+
+```text
+.
+├─ .github/
+│  └─ workflows/
+│     └─ playwright.yml            # GitHub Actions pipeline
+├─ pages/                          # Page Object Model classes
+│  ├─ base.page.ts
+│  ├─ login.page.ts
+│  ├─ inventory.page.ts
+│  ├─ cart.page.ts
+│  ├─ checkout-step-one.page.ts
+│  ├─ checkout-step-two.page.ts
+│  ├─ checkout-complete.page.ts
+│  └─ ...
+├─ tests/
+│  ├─ e2e/
+│  │  ├─ authentication/
+│  │  ├─ checkout/
+│  │  ├─ navigation/
+│  │  ├─ performance-user/
+│  │  └─ problem-user/
+│  └─ visual/
+│     └─ tablet-view.spec.ts       # visual regression tests
+├─ test-data/
+│  └─ users.json
+├─ utils/
+│  ├─ config.ts                    # env + global config
+│  ├─ test-helpers.ts              # login helpers, visual snapshot utils, etc.
+│  └─ ...
+├─ IMPLEMENTATION-SUMMARY.md       # summary of scripts & tags
+├─ TEST-TAGS.md                    # full tag documentation
+├─ playwright.config.ts
+├─ package.json
+└─ README.md
+```
+
+## ⚙️ Configuration & Environment Variables
+
+This project uses environment variables for configuration.
+
+Local development
+
+Create a ```.env``` file in project root:
+```
+BASE_URL=https://www.saucedemo.com
+PASSWORD=secret_sauce
+```
+```utils/config.ts``` loads these values via ```dotenv```.
+
+CI (GitHub Actions / Jenkins)
+
+Environment variables are injected via:
+- GitHub Secrets → ```PASSWORD: ${{ secrets.SWAGLABS_PASSWORD }}```
+- Jenkins Credentials → ```PASSWORD = credentials('swaglabs-password')```
+
+No secrets stored in repository.
+
+## ▶️ Running Tests
+
+Install dependencies
+```
 npm install
 npx playwright install
 ```
-
-### Run Tests
-
-```bash
-# Run all tests
+Run all tests
+```
 npm test
-
-# Run smoke tests (critical paths)
+# or
+npx playwright test
+```
+Tagged suites
+```
+# Smoke tests
 npm run test:smoke
 
-# Run regression tests (full suite)
+# Full regression
 npm run test:regression
 
-# Run accessibility tests
+# Accessibility (axe-core)
 npm run test:accessibility
 
-# Run with UI mode
-npm run test:ui
-
-# Run in headed mode (visible browser)
-npm run test:headed
+# Critical scenarios
+npm run test:critical
 ```
+Browser / execution modes
+```npm run test:chromium
+npm run test:firefox
+npm run test:webkit
 
-## 📋 Test Organization
-
-### Test Categories
-
-Tests are organized using tags for flexible execution:
-
-- **@smoke** - Critical path tests that must pass before deployment
-- **@regression** - Comprehensive functional tests covering all features
-- **@accessibility** - WCAG 2.0/2.1 Level AA compliance tests
-- **@visual** - Visual regression tests for different viewports
-
-See [TEST-TAGS.md](./TEST-TAGS.md) for detailed documentation on test tags and execution strategies.
-
-### Test Structure
-
+npm run test:ui        # Playwright UI mode
+npm run test:headed    # headful tests
+npm run test:debug     # with debugger
 ```
-tests/
-├── accessibility/         # Accessibility and a11y tests (@accessibility)
-├── visual/               # Visual regression tests (@visual)
-├── e2e/                  # End-to-end functional tests
-│   ├── authentication/   # Login, logout, and user management tests
-│   ├── checkout/         # Checkout process and validations (@smoke, @regression)
-│   ├── navigation/       # Menu navigation and links (@regression)
-│   ├── performance-user/ # Performance glitch user scenarios (@regression)
-│   ├── problem-user/     # Problem user scenarios (@regression)
-│   ├── product-browsing/ # Product viewing and sorting (@regression)
-│   └── shopping-cart/    # Cart management (@smoke, @regression)
-└── seed.spec.ts         # Seed test for setup
+HTML report
 ```
-
-## 🎯 Features
-
-- ✅ **Page Object Model (POM)** - Maintainable and reusable page objects
-- ✅ **Test Tags** - Flexible test execution with @smoke, @regression, @accessibility
-- ✅ **Accessibility Testing** - Automated a11y checks with axe-core
-- ✅ **Multi-Browser Support** - Chromium, Firefox, and WebKit
-- ✅ **CI/CD Ready** - Configured for continuous integration
-- ✅ **Comprehensive Coverage** - Authentication, checkout, navigation, cart management
-- ✅ **Special User Scenarios** - Tests for problem_user and performance_glitch_user
-
-## 🧪 Test Coverage
-
-### Smoke Tests (~2-5 minutes)
-
-- User login and authentication
-- Product inventory viewing
-- Adding items to cart
-- Complete checkout flow
-- User logout
-
-### Regression Tests (~15-30 minutes)
-
-- All authentication scenarios
-- Product browsing and sorting
-- Shopping cart operations
-- Checkout validations
-- Navigation and menu
-- Social media links
-- Special user scenarios
-
-### Accessibility Tests (~5-10 minutes)
-
-- Automated WCAG scanning
-- Keyboard navigation
-- Form accessibility
-- Color contrast validation
-- Focus management
-- ARIA attributes
-
-## 📊 Reports
-
-View test results:
-
-```bash
 npm run report
 ```
 
-## 🔧 Configuration
+## 🏷️ Test Tags
 
-Test configuration is in `playwright.config.ts`:
+All tag documentation is stored in:
 
-- Base URL: `https://www.saucedemo.com`
-- Multiple browser projects (Chromium, Firefox, WebKit)
-- Screenshot on failure
-- Video on failure
-- HTML reporter
+- TEST-TAGS.md
+- IMPLEMENTATION-SUMMARY.md
 
-## 📚 Documentation
+Short summary:
 
-- [TEST-TAGS.md](./TEST-TAGS.md) - Complete guide to test tags and execution
-- [test-plan-saucedemo.md](./test-plan-saucedemo.md) - Detailed test plan
+- ```@smoke``` — critical path
+- ```@regression``` — extended workflow coverage
+- ```@critical``` — tests with stronger business impact
+- ```@accessibility``` — axe-core checks
+- ```@visual``` — visual regression tests
 
-## 🛠️ Development
-
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-
-### Environment Variables
-
-Create a `.env` file (optional):
-
-```env
-BASE_URL=https://www.saucedemo.com
+Usage:
+```
+npx playwright test --grep @smoke
 ```
 
-### Run Specific Tests
+## 🖼️ Visual Regression Testing
 
-```bash
-# Run tests in specific file
-npx playwright test tests/e2e/authentication/successful-login-standard-user.spec.ts
+Visual snapshots live next to the test:
+```
+tests/visual/tablet-view.spec.ts-snapshots/
+  visual-tablet-order-complete.png
+  ...
+```
+Visual helper:
+```
+await takeVisualSnapshot(page, 'visual-tablet-order-complete', {fullPage: true});
+```
+Updating snapshots
 
-# Run tests in specific folder
-npx playwright test tests/accessibility/
+If UI changes intentionally:
+```
+npx playwright test tests/visual/tablet-view.spec.ts --update-snapshots
+```
+Tip: Regenerate snapshots on Linux (same as GitHub Actions runner) for consistent results.
 
-# Run e2e tests only
-npx playwright test tests/e2e/
+## ♿ Accessibility Testing (axe-core)
 
-# Run visual tests only
-npx playwright test --grep @visual
+Accessibility tests use ```@axe-core/playwright```.
 
-# Run with specific browser
-npm run test:chromium
-
-# Debug mode
-npm run test:debug
+Example:
+```
+const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+expect(accessibilityScanResults.violations).toEqual([]);
+```
+Execute with:
+```
+npm run test:accessibility
 ```
 
-## 🤝 Contributing
+## 🔄 CI / CD
+
+GitHub Actions
+
+Workflow file: ```.github/workflows/playwright.yml```
+
+Pipeline:
+- Checkout repo
+- Install Node LTS
+- ```npm ci```
+- Install browsers + Linux deps
+- Run full Playwright test suite
+- Upload HTML report as artifact
+
+Secrets:
+- ```SWAGLABS_PASSWORD``` → mapped to ```PASSWORD``` env
+
+Jenkins (optional)
+
+Local Jenkins in Docker using ```jenkins/jenkins:lts-jdk17```.
+
+Pipeline performs:
+- Checkout
+- ```npm ci```
+- ```npx playwright install```
+- Run tests
+- Archive:
+  - ```test-results/**/*``` (screenshots, traces, videos)
+  - ```playwright-report/**```
+
+This integration is included as a learning/demo setup.
+
+## 🤝 Contributing & Extending
 
 When adding new tests:
 
-1. Use appropriate tags (@smoke, @regression, @accessibility)
-2. Follow Page Object Model pattern
-3. Add clear test descriptions
-4. Update documentation
+Follow POM conventions in pages/.
 
-## 📝 License
+Add tags (@smoke, @regression, etc.).
+
+Prefer helpers for shared flows (login, addToCart, checkout).
+
+Keep snapshot baseline names consistent.
+
+Update README if adding new suites, commands or tags.
+
+## 📄 License
 
 ISC
