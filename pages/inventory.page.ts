@@ -1,5 +1,6 @@
 import { expect, Page, Locator } from '@playwright/test'
 import { BasePage } from './base.page'
+import { convertProductNameToId } from '../utils/test-helpers'
 
 export class InventoryPage extends BasePage {
     readonly pageTitle: Locator
@@ -21,12 +22,12 @@ export class InventoryPage extends BasePage {
         this.inventoryItemPrice = page.locator('.inventory_item_price')
     }
 
-    async verifyInventoryPageDisplayed() {
+    async assertInventoryPageDisplayed() {
         await expect(this.pageTitle).toHaveText('Products')
         await expect(this.inventoryItems.first()).toBeVisible()
     }
 
-    async verifyProductCount(expectedCount: number) {
+    async assertProductCount(expectedCount: number) {
         await expect(this.inventoryItems).toHaveCount(expectedCount)
     }
 
@@ -34,7 +35,7 @@ export class InventoryPage extends BasePage {
         await this.sortDropdown.selectOption(sortOption)
     }
 
-    async verifySortOption(expectedOption: string) {
+    async assertSortOption(expectedOption: string) {
         await expect(this.sortDropdown).toHaveValue(expectedOption)
     }
 
@@ -48,22 +49,22 @@ export class InventoryPage extends BasePage {
     }
 
     async addProductToCart(productName: string) {
-        const productId = this.convertProductNameToId(productName)
+        const productId = convertProductNameToId(productName)
         await this.page
             .locator(`[data-test="add-to-cart-${productId}"]`)
             .click()
     }
 
     async removeProductFromCart(productName: string) {
-        const productId = this.convertProductNameToId(productName)
+        const productId = convertProductNameToId(productName)
         await this.page.locator(`[data-test="remove-${productId}"]`).click()
     }
 
-    async verifyProductButtonState(
+    async assertProductButtonState(
         productName: string,
         state: 'add' | 'remove'
     ) {
-        const productId = this.convertProductNameToId(productName)
+        const productId = convertProductNameToId(productName)
         const locator =
             state === 'add'
                 ? this.page.locator(`[data-test="add-to-cart-${productId}"]`)
@@ -75,7 +76,7 @@ export class InventoryPage extends BasePage {
         await this.inventoryItemName.filter({ hasText: productName }).click()
     }
 
-    async verifyCartBadgeCount(expectedCount: number) {
+    async assertCartBadgeCount(expectedCount: number) {
         if (expectedCount > 0) {
             await expect(this.shoppingCartBadge).toHaveText(
                 expectedCount.toString()
@@ -87,12 +88,5 @@ export class InventoryPage extends BasePage {
 
     async navigateToCart() {
         await this.shoppingCartLink.click()
-    }
-
-    private convertProductNameToId(productName: string): string {
-        return productName
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[()]/g, '')
     }
 }

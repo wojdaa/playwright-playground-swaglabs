@@ -1,5 +1,6 @@
 import { expect, Page, Locator } from '@playwright/test'
 import { BasePage } from './base.page'
+import { convertProductNameToId } from '../utils/test-helpers'
 
 export class CartPage extends BasePage {
     readonly pageTitle: Locator
@@ -23,11 +24,11 @@ export class CartPage extends BasePage {
         this.itemPrice = page.locator('.inventory_item_price')
     }
 
-    async verifyCartPageDisplayed() {
+    async assertCartPageDisplayed() {
         await expect(this.pageTitle).toHaveText('Your Cart')
     }
 
-    async verifyCartItemCount(expectedCount: number) {
+    async assertCartItemCount(expectedCount: number) {
         if (expectedCount > 0) {
             await expect(this.cartItems).toHaveCount(expectedCount)
         } else {
@@ -35,14 +36,14 @@ export class CartPage extends BasePage {
         }
     }
 
-    async verifyItemInCart(productName: string) {
+    async assertItemInCart(productName: string) {
         await expect(
             this.itemName.filter({ hasText: productName })
         ).toBeVisible()
     }
 
     async removeItem(productName: string) {
-        const productId = this.convertProductNameToId(productName)
+        const productId = convertProductNameToId(productName)
         await this.page.locator(`[data-test="remove-${productId}"]`).click()
     }
 
@@ -60,12 +61,5 @@ export class CartPage extends BasePage {
 
     async getCartItemNames(): Promise<string[]> {
         return await this.itemName.allTextContents()
-    }
-
-    private convertProductNameToId(productName: string): string {
-        return productName
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[()]/g, '')
     }
 }

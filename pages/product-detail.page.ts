@@ -21,7 +21,7 @@ export class ProductDetailPage extends BasePage {
         this.backButton = page.locator('[data-test="back-to-products"]')
     }
 
-    async verifyProductDetails(name: string, price: string) {
+    async assertProductDetails(name: string, price: string) {
         await expect(this.productName).toHaveText(name)
         await expect(this.productPrice).toHaveText(price)
         await expect(this.productDescription).toBeVisible()
@@ -36,7 +36,7 @@ export class ProductDetailPage extends BasePage {
         await this.removeButton.click()
     }
 
-    async verifyButtonState(state: 'add' | 'remove') {
+    async assertButtonState(state: 'add' | 'remove') {
         const locator =
             state === 'add' ? this.addToCartButton : this.removeButton
         await expect(locator).toBeVisible()

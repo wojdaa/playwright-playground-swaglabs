@@ -25,13 +25,13 @@ export class LoginPage extends BasePage {
         await this.loginButton.click()
     }
 
-    async verifyLoginPageDisplayed() {
+    async assertLoginPageDisplayed() {
         await expect(this.usernameInput).toBeVisible()
         await expect(this.passwordInput).toBeVisible()
         await expect(this.loginButton).toBeVisible()
     }
 
-    async verifyErrorMessage(expectedMessage: string) {
+    async assertErrorMessage(expectedMessage: string) {
         await expect(this.errorMessage).toBeVisible()
         await expect(this.errorMessage).toContainText(expectedMessage)
     }
@@ -41,7 +41,7 @@ export class LoginPage extends BasePage {
         await expect(this.errorMessage).not.toBeVisible()
     }
 
-    async verifyAcceptedUsernamesListed() {
+    async assertAcceptedUsernamesListed() {
         await expect(this.loginCredentials).toBeVisible()
     }
 }

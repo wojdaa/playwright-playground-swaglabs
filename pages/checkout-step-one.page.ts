@@ -37,12 +37,12 @@ export class CheckoutStepOnePage extends BasePage {
         await this.cancelButton.click()
     }
 
-    async verifyErrorMessage(expectedMessage: string) {
+    async assertErrorMessage(expectedMessage: string) {
         await expect(this.errorMessage).toBeVisible()
         await expect(this.errorMessage).toContainText(expectedMessage)
     }
 
-    async verifyCheckoutStepOneDisplayed() {
+    async assertCheckoutStepOneDisplayed() {
         await expect(this.firstNameInput).toBeVisible()
         await expect(this.lastNameInput).toBeVisible()
         await expect(this.postalCodeInput).toBeVisible()

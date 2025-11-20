@@ -17,7 +17,7 @@ export class CheckoutCompletePage extends BasePage {
         this.ponyExpressImage = page.locator('.pony_express')
     }
 
-    async verifyOrderComplete() {
+    async assertOrderComplete() {
         await expect(this.pageTitle).toHaveText('Checkout: Complete!')
         await expect(this.completeHeader).toContainText(
             'Thank you for your order'

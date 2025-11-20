@@ -1,10 +1,9 @@
 import { test, expect } from '@playwright/test'
 import { loginAs } from '../utils/test-helpers'
-import { config } from '../utils/config'
 
 test.describe('Seed Test', () => {
     test('should successfully login and view inventory', async ({ page }) => {
-        await page.goto(config.baseURL!)
+        await page.goto('/')
         await loginAs(page, 'standard_user')
 
         await expect(page).toHaveURL(/inventory\.html/)

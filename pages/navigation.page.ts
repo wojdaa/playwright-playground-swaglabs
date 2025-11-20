@@ -58,7 +58,7 @@ export class NavigationPage extends BasePage {
         await this.closeMenu()
     }
 
-    async verifyMenuVisible() {
+    async assertMenuVisible() {
         await expect(this.sidebarMenu).toBeVisible()
         await expect(this.allItemsLink).toBeVisible()
         await expect(this.aboutLink).toBeVisible()

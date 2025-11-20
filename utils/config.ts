@@ -5,7 +5,6 @@ import users from '../test-data/users.json'
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
 export const config = {
-    baseURL: process.env.BASE_URL,
     password: process.env.PASSWORD,
     users: users,
     timeout: {

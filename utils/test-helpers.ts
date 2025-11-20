@@ -6,7 +6,7 @@ export async function loginAs(page: Page, userType: UserType) {
     const loginPage = new LoginPage(page)
     const user = getUser(userType)
 
-    await page.goto(config.baseURL!)
+    await page.goto('/')
     await loginPage.login(user.username, user.password!)
 }
 
@@ -30,7 +30,7 @@ export async function getCartCount(page: Page): Promise<number> {
     return 0
 }
 
-export async function verifyUrlContains(page: Page, urlPart: string) {
+export async function assertUrlContains(page: Page, urlPart: string) {
     await expect(page).toHaveURL(new RegExp(urlPart))
 }
 

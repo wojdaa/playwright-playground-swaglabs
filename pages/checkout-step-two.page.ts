@@ -27,17 +27,17 @@ export class CheckoutStepTwoPage extends BasePage {
         this.inventoryItemName = page.locator('.inventory_item_name')
     }
 
-    async verifyCheckoutOverviewDisplayed() {
+    async assertCheckoutOverviewDisplayed() {
         await expect(this.pageTitle).toHaveText('Checkout: Overview')
     }
 
-    async verifyItemInOrder(productName: string) {
+    async assertItemInOrder(productName: string) {
         await expect(
             this.inventoryItemName.filter({ hasText: productName })
         ).toBeVisible()
     }
 
-    async verifyOrderItemCount(expectedCount: number) {
+    async assertOrderItemCount(expectedCount: number) {
         await expect(this.cartItems).toHaveCount(expectedCount)
     }
 
@@ -56,7 +56,7 @@ export class CheckoutStepTwoPage extends BasePage {
         return parseFloat(text.replace('Total: $', ''))
     }
 
-    async verifyPaymentInformation(expectedText: string) {
+    async assertPaymentInformation(expectedText: string) {
         const paymentElements = await this.paymentInfo.allTextContents()
         expect(
             paymentElements.some((text) => text.includes(expectedText))
