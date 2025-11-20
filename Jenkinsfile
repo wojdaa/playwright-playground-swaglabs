@@ -32,11 +32,8 @@ pipeline {
       catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
         junit 'test-results/playwright-junit.xml'
       }
+      archiveArtifacts artifacts: 'test-results/**/*', fingerprint: true, allowEmptyArchive: true
+      archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true, allowEmptyArchive: true
     }
-    archiveArtifacts artifacts: 'test-results/**/*.png', fingerprint: true
-    archiveArtifacts artifacts: 'test-results/**/*.webm', fingerprint: true
-    archiveArtifacts artifacts: 'test-results/**/*.zip', fingerprint: true
-    archiveArtifacts artifacts: 'test-results/**/*.md', fingerprint: true
-    archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
   }
 }
