@@ -16,13 +16,9 @@ test.describe('Shopping Cart Management', () => {
 
     test('Add Item from Product Detail Page @regression', async ({ page }) => {
         await inventoryPage.clickProductName('Sauce Labs Backpack')
-
         await productDetailPage.addToCart()
-
         await productDetailPage.assertButtonState('remove')
-
         await expect(page.locator('.shopping_cart_badge')).toHaveText('1')
-
         await productDetailPage.backToProducts()
         await inventoryPage.assertProductButtonState(
             'Sauce Labs Backpack',
@@ -34,15 +30,10 @@ test.describe('Shopping Cart Management', () => {
         page,
     }) => {
         await inventoryPage.addProductToCart('Sauce Labs Backpack')
-
         await inventoryPage.clickProductName('Sauce Labs Backpack')
-
         await productDetailPage.removeFromCart()
-
         await productDetailPage.assertButtonState('add')
-
-        await expect(page.locator('.shopping_cart_badge')).not.toBeVisible()
-
+        await expect(page.locator('.shopping_cart_badge')).toBeHidden()
         await productDetailPage.backToProducts()
         await inventoryPage.assertProductButtonState(
             'Sauce Labs Backpack',

@@ -38,10 +38,29 @@ export class LoginPage extends BasePage {
 
     async clearErrorMessage() {
         await this.errorButton.click()
-        await expect(this.errorMessage).not.toBeVisible()
+        await expect(this.errorMessage).toBeHidden()
     }
 
     async assertAcceptedUsernamesListed() {
         await expect(this.loginCredentials).toBeVisible()
+    }
+
+    async assertLoginFieldsVisible() {
+        await expect(
+            this.page.getByRole('textbox', { name: 'Username' })
+        ).toBeVisible()
+        await expect(
+            this.page.getByRole('textbox', { name: 'Password' })
+        ).toBeVisible()
+    }
+
+    async assertAcceptedUsernamesTextVisible() {
+        await expect(
+            this.page.getByText('Accepted usernames are:')
+        ).toBeVisible()
+    }
+
+    async assertNoErrorDisplayed() {
+        await expect(this.errorMessage).toBeHidden()
     }
 }

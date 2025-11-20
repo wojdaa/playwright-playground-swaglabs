@@ -32,9 +32,13 @@ export class NavigationPage extends BasePage {
         await expect(this.sidebarMenu).toBeVisible()
     }
 
+    async assertMenuButtonVisible() {
+        await expect(this.hamburgerButton).toBeVisible()
+    }
+
     async closeMenu() {
         await this.closeMenuButton.click()
-        await expect(this.sidebarMenu).not.toBeVisible()
+        await expect(this.sidebarMenu).toBeHidden()
     }
 
     async logout() {

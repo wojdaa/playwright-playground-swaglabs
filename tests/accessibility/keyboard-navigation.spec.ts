@@ -33,14 +33,11 @@ test.describe('Navigation and Focus Management', () => {
     test.fixme(
         'all buttons should be keyboard accessible @accessibility',
         async ({ page }) => {
-            const buttons = await page.locator('button').all()
+            const buttons = await page.locator('button:visible').all()
 
             for (const button of buttons) {
-                const isVisible = await button.isVisible()
-                if (isVisible) {
-                    await button.focus()
-                    await expect(button).toBeFocused()
-                }
+                await button.focus()
+                await expect(button).toBeFocused()
             }
         }
     )
@@ -52,38 +49,35 @@ test.describe('Navigation and Focus Management', () => {
         async ({ page }) => {
             // Check if focus outline is visible
             const interactiveElements = await page
-                .locator('button, a, input, select')
+                .locator(
+                    'button:visible, a:visible, input:visible, select:visible'
+                )
                 .all()
 
             for (const element of interactiveElements) {
-                const isVisible = await element.isVisible()
-                if (isVisible) {
-                    await element.focus()
+                await element.focus()
 
-                    // Get computed style to check if outline is visible
-                    const outline = await element.evaluate((el) => {
-                        const style = window.getComputedStyle(el)
-                        return {
-                            outlineWidth: style.outlineWidth,
-                            outlineStyle: style.outlineStyle,
-                            outlineColor: style.outlineColor,
-                        }
-                    })
+                // Get computed style to check if outline is visible
+                const outline = await element.evaluate((el) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    const style = (globalThis as any).window.getComputedStyle(
+                        el
+                    )
+                    return {
+                        outlineWidth: style.outlineWidth,
+                        outlineStyle: style.outlineStyle,
+                        outlineColor: style.outlineColor,
+                    }
+                })
 
-                    // Verify that some focus indicator exists
-                    // (outline width should not be 0px or outline style should not be 'none')
-                    const hasFocusIndicator =
-                        outline.outlineWidth !== '0px' ||
-                        outline.outlineStyle !== 'none'
-
-                    expect(hasFocusIndicator).toBeTruthy()
-                }
+                // Verify that some focus indicator exists
+                // (outline width should not be 0px or outline style should not be 'none')
+                expect(outline.outlineWidth).not.toBe('0px')
+                expect(outline.outlineStyle).not.toBe('none')
             }
         }
     )
 
-    // Known browser-specific issue: Tab navigation doesn't work as expected in WebKit for menu items
-    // Menu items don't receive focus in the expected order when using Tab key in WebKit
     test.fixme(
         'navigation menu should be keyboard accessible @accessibility',
         async ({ page }) => {
@@ -120,9 +114,8 @@ test.describe('Navigation and Focus Management', () => {
         await page.keyboard.press('Enter')
 
         // Verify sort was applied
-        const sortValue = await page
-            .locator('[data-test="product-sort-container"]')
-            .inputValue()
-        expect(sortValue).not.toBe('az')
+        await expect(
+            page.locator('[data-test="product-sort-container"]')
+        ).not.toHaveValue('az')
     })
 })

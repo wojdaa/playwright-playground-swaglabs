@@ -15,17 +15,15 @@ test.describe('Performance Glitch User Scenarios', () => {
         await expect(page).toHaveURL(/inventory\.html/)
 
         const duration = endTime - startTime
-        console.log(`Performance user login took ${duration}ms`)
+        expect(duration).toBeGreaterThan(0)
     })
 
     test('Performance User - Page Load Times @regression', async ({ page }) => {
         const inventoryPage = new InventoryPage(page)
 
         await loginAs(page, 'performance_glitch_user')
-
         await inventoryPage.clickProductName('Sauce Labs Backpack')
         await expect(page).toHaveURL(/inventory-item\.html/)
-
         await page.locator('[data-test="back-to-products"]').click()
         await inventoryPage.assertInventoryPageDisplayed()
     })
@@ -42,9 +40,6 @@ test.describe('Performance Glitch User Scenarios', () => {
         const endTime = Date.now()
 
         await inventoryPage.assertCartBadgeCount(1)
-
-        console.log(
-            `Add to cart took ${endTime - startTime}ms for performance_glitch_user`
-        )
+        expect(endTime - startTime).toBeGreaterThan(0)
     })
 })

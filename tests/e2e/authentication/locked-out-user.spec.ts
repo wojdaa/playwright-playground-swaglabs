@@ -10,7 +10,6 @@ test.describe("Authentication & User Management", () => {
     await loginPage.usernameInput.fill("locked_out_user");
     await loginPage.passwordInput.fill(config.password!);
     await loginPage.loginButton.click();
-
     await expect(page).toHaveURL('/');
     await loginPage.assertErrorMessage(
       "Epic sadface: Sorry, this user has been locked out."

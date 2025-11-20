@@ -16,23 +16,19 @@ test.describe('Navigation & Menu', () => {
 
     test('Open Hamburger Menu @regression', async () => {
         await navigation.openMenu()
-
         await navigation.assertMenuVisible()
     })
 
     test('Close Hamburger Menu @regression', async () => {
         await navigation.openMenu()
         await navigation.closeMenu()
-
-        await expect(navigation.sidebarMenu).not.toBeVisible()
+        await expect(navigation.sidebarMenu).toBeHidden()
     })
 
     test('Navigate via All Items Link @regression', async ({ page }) => {
         await inventoryPage.addProductToCart('Sauce Labs Backpack')
         await inventoryPage.navigateToCart()
-
         await navigation.navigateToAllItems()
-
         await expect(page).toHaveURL(/inventory\.html/)
         await inventoryPage.assertCartBadgeCount(1)
     })
@@ -43,10 +39,8 @@ test.describe('Navigation & Menu', () => {
         await inventoryPage.addProductToCart('Sauce Labs Backpack')
         await inventoryPage.addProductToCart('Sauce Labs Bike Light')
         await inventoryPage.selectSort('hilo')
-
         await navigation.resetAppState()
-
-        await expect(page.locator('.shopping_cart_badge')).not.toBeVisible()
+        await expect(page.locator('.shopping_cart_badge')).toBeHidden()
         await inventoryPage.assertProductButtonState(
             'Sauce Labs Backpack',
             'add'

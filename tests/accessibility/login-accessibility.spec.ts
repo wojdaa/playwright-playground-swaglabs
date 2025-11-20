@@ -16,7 +16,6 @@ test.describe('Login Page - Accessibility Tests', () => {
             const accessibilityScanResults = await new AxeBuilder({
                 page,
             }).analyze()
-
             expect(accessibilityScanResults.violations).toEqual([])
         }
     )
@@ -26,7 +25,6 @@ test.describe('Login Page - Accessibility Tests', () => {
             .include('[data-test="username"]')
             .include('[data-test="password"]')
             .analyze()
-
         expect(accessibilityScanResults.violations).toEqual([])
     })
 
@@ -58,7 +56,6 @@ test.describe('Login Page - Accessibility Tests', () => {
             const accessibilityScanResults = await new AxeBuilder({ page })
                 .include('[data-test="error"]')
                 .analyze()
-
             expect(accessibilityScanResults.violations).toEqual([])
         }
     )
@@ -74,7 +71,6 @@ test.describe('Login Page - Accessibility Tests', () => {
             accessibilityScanResults.violations.filter(
                 (violation) => violation.id === 'color-contrast'
             )
-
         expect(colorContrastViolations).toEqual([])
     })
 })

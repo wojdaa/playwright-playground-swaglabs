@@ -82,11 +82,15 @@ export class InventoryPage extends BasePage {
                 expectedCount.toString()
             )
         } else {
-            await expect(this.shoppingCartBadge).not.toBeVisible()
+            await expect(this.shoppingCartBadge).toBeHidden()
         }
     }
 
     async navigateToCart() {
         await this.shoppingCartLink.click()
+    }
+
+    async assertShoppingCartLinkVisible() {
+        await expect(this.shoppingCartLink).toBeVisible()
     }
 }

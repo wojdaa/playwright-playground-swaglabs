@@ -25,7 +25,6 @@ test.describe('Checkout Process', () => {
 
     test('Cancel Checkout - Step One @regression', async ({ page }) => {
         await checkoutStepOne.cancel()
-
         await expect(page).toHaveURL(/cart\.html/)
         await cartPage.assertCartItemCount(1)
         await inventoryPage.assertCartBadgeCount(1)
@@ -36,9 +35,7 @@ test.describe('Checkout Process', () => {
 
         await checkoutStepOne.fillCheckoutInformation('John', 'Doe', '12345')
         await checkoutStepOne.continue()
-
         await checkoutStepTwo.cancel()
-
         await expect(page).toHaveURL(/inventory\.html/)
         await inventoryPage.assertCartBadgeCount(1)
     })
@@ -50,11 +47,9 @@ test.describe('Checkout Process', () => {
         await checkoutStepOne.fillCheckoutInformation('John', 'Doe', '12345')
         await checkoutStepOne.continue()
         await checkoutStepTwo.finish()
-
         await checkoutComplete.backHome()
-
         await expect(page).toHaveURL(/inventory\.html/)
-        await expect(page.locator('.shopping_cart_badge')).not.toBeVisible()
+        await expect(page.locator('.shopping_cart_badge')).toBeHidden()
         await inventoryPage.assertProductButtonState(
             'Sauce Labs Backpack',
             'add'

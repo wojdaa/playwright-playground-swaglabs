@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { loginAs } from '../../utils/test-helpers'
+import { loginAs, takeVisualSnapshot } from '../../utils/test-helpers'
 
 test.describe('Visual Testing', () => {
     test('Tablet View (768x1024) @visual', async ({ page }) => {
@@ -12,10 +12,7 @@ test.describe('Visual Testing', () => {
 
         // 4. Take screenshot of inventory page
         await expect(page).toHaveURL(/inventory\.html/)
-        await page.screenshot({
-            fullPage: true,
-            path: 'test-results/visual-tablet-inventory.png',
-        })
+        await takeVisualSnapshot(page, 'visual-tablet-inventory')
 
         // 6. Add Sauce Labs Fleece Jacket to cart
         await page
@@ -27,10 +24,7 @@ test.describe('Visual Testing', () => {
 
         // 8. Take screenshot of cart page
         await expect(page).toHaveURL(/cart\.html/)
-        await page.screenshot({
-            fullPage: true,
-            path: 'test-results/visual-tablet-cart.png',
-        })
+        await takeVisualSnapshot(page, 'visual-tablet-cart')
 
         // 9. Click checkout button
         await page.locator('[data-test="checkout"]').click()
@@ -45,20 +39,14 @@ test.describe('Visual Testing', () => {
 
         // 12. Take screenshot of checkout overview page
         await expect(page).toHaveURL(/checkout-step-two\.html/)
-        await page.screenshot({
-            fullPage: true,
-            path: 'test-results/visual-tablet-checkout-overview.png',
-        })
+        await takeVisualSnapshot(page, 'visual-tablet-checkout-overview')
 
         // 13. Click finish
         await page.locator('[data-test="finish"]').click()
 
         // 14. Take screenshot of order complete page
         await expect(page).toHaveURL(/checkout-complete\.html/)
-        await page.screenshot({
-            fullPage: true,
-            path: 'test-results/visual-tablet-order-complete.png',
-        })
+        await takeVisualSnapshot(page, 'visual-tablet-order-complete')
 
         // Verification: Verify order complete page is displayed
         await expect(

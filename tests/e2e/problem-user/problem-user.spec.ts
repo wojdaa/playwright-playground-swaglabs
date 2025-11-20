@@ -28,7 +28,6 @@ test.describe('Problem User Scenarios', () => {
     test('Problem User - Add to Cart Functionality @regression', async () => {
         await inventoryPage.addProductToCart('Sauce Labs Backpack')
         await inventoryPage.assertCartBadgeCount(1)
-
         await inventoryPage.navigateToCart()
         await cartPage.assertItemInCart('Sauce Labs Backpack')
     })

@@ -29,7 +29,7 @@ test.describe('Navigation & Menu', () => {
         const pagePromise = context.waitForEvent('page')
         await navigation.facebookLink.click()
         const newPage = await pagePromise
-
+        
         await newPage.waitForLoadState()
         expect(newPage.url()).toContain('facebook.com')
     })

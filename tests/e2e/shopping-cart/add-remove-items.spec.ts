@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test } from '@playwright/test'
 import { loginAs } from '../../../utils/test-helpers'
 import { InventoryPage } from '../../../pages/inventory.page'
 
@@ -13,7 +13,6 @@ test.describe('Shopping Cart Management', () => {
 
     test('Add Single Item to Cart from Inventory @smoke @regression', async () => {
         await inventoryPage.addProductToCart('Sauce Labs Backpack')
-
         await inventoryPage.assertProductButtonState(
             'Sauce Labs Backpack',
             'remove'
@@ -24,13 +23,10 @@ test.describe('Shopping Cart Management', () => {
     test('Add Multiple Items to Cart @regression', async () => {
         await inventoryPage.addProductToCart('Sauce Labs Backpack')
         await inventoryPage.assertCartBadgeCount(1)
-
         await inventoryPage.addProductToCart('Sauce Labs Bike Light')
         await inventoryPage.assertCartBadgeCount(2)
-
         await inventoryPage.addProductToCart('Sauce Labs Onesie')
         await inventoryPage.assertCartBadgeCount(3)
-
         await inventoryPage.assertProductButtonState(
             'Sauce Labs Backpack',
             'remove'
@@ -48,9 +44,7 @@ test.describe('Shopping Cart Management', () => {
     test('Remove Item from Cart on Inventory Page @regression', async () => {
         await inventoryPage.addProductToCart('Sauce Labs Backpack')
         await inventoryPage.assertCartBadgeCount(1)
-
         await inventoryPage.removeProductFromCart('Sauce Labs Backpack')
-
         await inventoryPage.assertProductButtonState(
             'Sauce Labs Backpack',
             'add'

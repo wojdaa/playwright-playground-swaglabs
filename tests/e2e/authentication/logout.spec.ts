@@ -8,11 +8,9 @@ test.describe('Authentication & User Management', () => {
 
         await page.goto('/')
         await loginAs(page, 'standard_user')
-
         await navigation.openMenu()
         await navigation.assertMenuVisible()
         await navigation.logoutLink.click()
-
         await expect(page).toHaveURL('/')
         await expect(page.locator('[data-test="username"]')).toBeVisible()
     })

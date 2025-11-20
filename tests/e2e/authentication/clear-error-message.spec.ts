@@ -12,7 +12,6 @@ test.describe("Authentication & User Management", () => {
       "Epic sadface: Sorry, this user has been locked out."
     );
     await loginPage.clearErrorMessage();
-
     await expect(loginPage.usernameInput).toBeVisible();
     await expect(loginPage.passwordInput).toBeVisible();
   });

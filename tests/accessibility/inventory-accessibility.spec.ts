@@ -19,7 +19,6 @@ test.describe('Inventory Page - Accessibility Tests', () => {
             const accessibilityScanResults = await new AxeBuilder({
                 page,
             }).analyze()
-
             expect(accessibilityScanResults.violations).toEqual([])
         }
     )
@@ -31,7 +30,6 @@ test.describe('Inventory Page - Accessibility Tests', () => {
         const accessibilityScanResults = await new AxeBuilder({ page })
             .include('.inventory_item_img')
             .analyze()
-
         expect(accessibilityScanResults.violations).toEqual([])
     })
 
@@ -47,7 +45,6 @@ test.describe('Inventory Page - Accessibility Tests', () => {
                 violation.id === 'heading-order' ||
                 violation.id === 'page-has-heading-one'
         )
-
         expect(headingViolations).toEqual([])
     })
 
@@ -75,7 +72,6 @@ test.describe('Inventory Page - Accessibility Tests', () => {
             const accessibilityScanResults = await new AxeBuilder({ page })
                 .include('.product_sort_container')
                 .analyze()
-
             expect(accessibilityScanResults.violations).toEqual([])
         }
     )
@@ -94,7 +90,6 @@ test.describe('Inventory Page - Accessibility Tests', () => {
             const accessibilityScanResults = await new AxeBuilder({ page })
                 .include('.bm-menu')
                 .analyze()
-
             expect(accessibilityScanResults.violations).toEqual([])
         }
     )
@@ -107,7 +102,6 @@ test.describe('Inventory Page - Accessibility Tests', () => {
             const accessibilityScanResults = await new AxeBuilder({ page })
                 .withTags(['wcag2aa', 'wcag21aa'])
                 .analyze()
-
             expect(accessibilityScanResults.violations).toEqual([])
         }
     )

@@ -27,7 +27,6 @@ test.describe('Checkout Process', () => {
         await checkoutStepOne.lastNameInput.fill('Doe')
         await checkoutStepOne.postalCodeInput.fill('12345')
         await checkoutStepOne.continue()
-
         await checkoutStepOne.assertErrorMessage('First Name is required')
         await expect(page).toHaveURL(/checkout-step-one\.html/)
     })
@@ -38,7 +37,6 @@ test.describe('Checkout Process', () => {
         await checkoutStepOne.firstNameInput.fill('John')
         await checkoutStepOne.postalCodeInput.fill('12345')
         await checkoutStepOne.continue()
-
         await checkoutStepOne.assertErrorMessage('Last Name is required')
         await expect(page).toHaveURL(/checkout-step-one\.html/)
     })
@@ -49,7 +47,6 @@ test.describe('Checkout Process', () => {
         await checkoutStepOne.firstNameInput.fill('John')
         await checkoutStepOne.lastNameInput.fill('Doe')
         await checkoutStepOne.continue()
-
         await checkoutStepOne.assertErrorMessage('Postal Code is required')
         await expect(page).toHaveURL(/checkout-step-one\.html/)
     })
@@ -58,7 +55,6 @@ test.describe('Checkout Process', () => {
         page,
     }) => {
         await checkoutStepOne.continue()
-
         await checkoutStepOne.assertErrorMessage('First Name is required')
         await expect(page).toHaveURL(/checkout-step-one\.html/)
     })

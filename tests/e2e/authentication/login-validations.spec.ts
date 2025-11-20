@@ -12,21 +12,18 @@ test.describe("Authentication & User Management", () => {
 
   test("Login with Empty Credentials @regression", async ({ page }) => {
     await loginPage.loginButton.click();
-
     await loginPage.assertErrorMessage("Username is required");
     await expect(page).toHaveURL('/');
   });
 
   test("Login with Invalid Username @regression", async ({ page }) => {
     await loginPage.login("invalid_user", config.password!);
-
     await loginPage.assertErrorMessage("Username and password do not match");
     await expect(page).toHaveURL('/');
   });
 
   test("Login with Invalid Password @regression", async ({ page }) => {
     await loginPage.login("standard_user", "wrong_password");
-
     await loginPage.assertErrorMessage("Username and password do not match");
     await expect(page).toHaveURL('/');
   });
