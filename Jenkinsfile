@@ -28,7 +28,6 @@ pipeline {
 
   post {
     always {
-      // to zadziała jak dodasz JUnit reporter w playwright.config.ts
       catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
         junit 'test-results/playwright-junit.xml'
       }
