@@ -17,7 +17,7 @@ export default defineConfig({
     ],
     use: {
         baseURL: process.env.BASE_URL || 'https://www.saucedemo.com',
-        trace: 'on-first-retry',
+        trace: 'retain-on-failure',
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
     },
