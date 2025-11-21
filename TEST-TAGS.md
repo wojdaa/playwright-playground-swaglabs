@@ -107,23 +107,62 @@ npm run test:accessibility
 
 ---
 
+### @api
+
+**Purpose:** Tests validating API endpoints and backend functionality.
+
+**When to run:**
+
+- During API development
+- Before backend deployments
+- In integration testing
+- Nightly regression runs
+
+**Coverage:**
+
+- API endpoint validation
+- Request/response validation
+- HTTP status codes
+- Data structure validation
+- Error handling
+- Authentication/authorization
+
+**Test files:**
+
+- `tests/api/reqres.api.spec.ts`
+
+**Tests tagged with @api:**
+
+- `GET /users returns a list of users`
+- `POST /users creates a new user`
+- `POST /login fails with missing password`
+
+**Run command:**
+
+```bash
+npm run test:api
+```
+
+---
+
 ## npm Scripts Reference
 
 ```json
 {
-  "test": "playwright test", // Run all tests
-  "test:smoke": "playwright test --grep @smoke", // Run smoke tests only
-  "test:regression": "playwright test --grep @regression", // Run regression tests
-  "test:accessibility": "playwright test --grep @accessibility", // Run accessibility tests
-  "test:critical": "playwright test --grep '@smoke|@critical'", // Run smoke or critical tests
-  "test:headed": "playwright test --headed", // Run with visible browser
-  "test:ui": "playwright test --ui", // Run with UI mode
-  "test:debug": "playwright test --debug", // Run in debug mode
-  "test:chromium": "playwright test --project=chromium", // Run on Chromium only
-  "test:firefox": "playwright test --project=firefox", // Run on Firefox only
-  "test:webkit": "playwright test --project=webkit", // Run on WebKit only
-  "report": "playwright show-report", // Show test report
-  "codegen": "playwright codegen" // Generate test code
+    "test": "playwright test", // Run all tests
+    "test:smoke": "playwright test --grep @smoke", // Run smoke tests only
+    "test:regression": "playwright test --grep @regression", // Run regression tests
+    "test:accessibility": "playwright test --grep @accessibility", // Run accessibility tests
+    "test:api": "playwright test --grep @api", // Run API tests only
+    "test:critical": "playwright test --grep '@smoke|@critical'", // Run smoke or critical tests
+    "test:headed": "playwright test --headed", // Run with visible browser
+    "test:ui": "playwright test --ui", // Run with UI mode
+    "test:debug": "playwright test --debug", // Run in debug mode
+    "test:chromium": "playwright test --project=chromium", // Run on Chromium only
+    "test:firefox": "playwright test --project=firefox", // Run on Firefox only
+    "test:webkit": "playwright test --project=webkit", // Run on WebKit only
+    "report": "playwright show-report", // Show test report
+    "codegen": "playwright codegen" // Generate test code
 }
 ```
 
@@ -159,39 +198,39 @@ npx playwright test tests/accessibility/
 name: Playwright Tests
 
 on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main]
 
 jobs:
-  smoke-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - run: npm ci
-      - run: npx playwright install --with-deps
-      - run: npm run test:smoke
+    smoke-tests:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+            - run: npm ci
+            - run: npx playwright install --with-deps
+            - run: npm run test:smoke
 
-  regression-tests:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - run: npm ci
-      - run: npx playwright install --with-deps
-      - run: npm run test:regression
+    regression-tests:
+        runs-on: ubuntu-latest
+        if: github.event_name == 'push'
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+            - run: npm ci
+            - run: npx playwright install --with-deps
+            - run: npm run test:regression
 
-  accessibility-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - run: npm ci
-      - run: npx playwright install --with-deps
-      - run: npm run test:accessibility
+    accessibility-tests:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+            - run: npm ci
+            - run: npx playwright install --with-deps
+            - run: npm run test:accessibility
 ```
 
 ## Best Practices
@@ -208,6 +247,7 @@ jobs:
 - **@smoke**: ~2-5 minutes (5-10 critical tests)
 - **@regression**: ~15-30 minutes (60+ comprehensive tests)
 - **@accessibility**: ~5-10 minutes (30+ accessibility checks)
+- **@api**: ~1-2 minutes (API endpoint tests)
 - **All tests**: ~20-35 minutes
 
 ## Adding Tags to New Tests
@@ -215,17 +255,21 @@ jobs:
 When creating new tests, add appropriate tags:
 
 ```typescript
-test("My Critical Test @smoke @regression", async ({ page }) => {
-  // test code
-});
+test('My Critical Test @smoke @regression', async ({ page }) => {
+    // test code
+})
 
-test("My Feature Test @regression", async ({ page }) => {
-  // test code
-});
+test('My Feature Test @regression', async ({ page }) => {
+    // test code
+})
 
-test("My Accessibility Test @accessibility", async ({ page }) => {
-  // test code
-});
+test('My Accessibility Test @accessibility', async ({ page }) => {
+    // test code
+})
+
+test('My API Test @api @regression', async ({ request }) => {
+    // test code
+})
 ```
 
 ## Tag Selection Guidelines
@@ -236,5 +280,6 @@ test("My Accessibility Test @accessibility", async ({ page }) => {
 | Feature validation                      | `@regression`        |
 | Edge cases and error handling           | `@regression`        |
 | Accessibility checks                    | `@accessibility`     |
+| API endpoint tests                      | `@api @regression`   |
 | Performance tests                       | `@regression`        |
 | Special user scenarios                  | `@regression`        |

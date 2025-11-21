@@ -179,6 +179,13 @@ Execute with:
 npm run test:accessibility
 ```
 
+## 🔌 API Tests (Reqres.in)
+- folder: ```/tests/api```
+- stack: Playwright APIRequestContext + TypeScript
+- includes: ```GET``` /users, ```POST``` /users, ```POST``` /login (negative)
+
+In order to use POST please use following ```x-api-key``` header: ```reqres-free-v1``` 
+
 ## 🔄 CI / CD
 
 GitHub Actions
